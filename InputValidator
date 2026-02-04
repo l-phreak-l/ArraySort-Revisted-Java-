@@ -1,0 +1,42 @@
+/**
+ * validates names and numbers
+ *
+ */
+public class InputValidator {
+
+    public static boolean isValidNumber(String input) {
+        if (input == null || input.trim().isEmpty()) {
+            return false;
+        }
+        try {
+            Double.parseDouble(input.trim());
+            return true;
+        } catch (NumberFormatException e) {
+            return false;
+        }
+    }
+
+    public static boolean isValidName(String input) {
+        if (input == null || input.trim().isEmpty()) {
+            return false;
+        }
+        return input.trim().matches("[a-zA-Z]+");
+    }
+
+    public static Number convertToNumber(String input) {
+        String trimmed = input.trim();
+        try {
+            if (trimmed.matches("-?\\d+")) {
+                return Integer.parseInt(trimmed);
+            } else {
+                double value = Double.parseDouble(trimmed);
+                if (value == (int) value) {
+                    return (int) value;
+                }
+                return value;
+            }
+        } catch (NumberFormatException e) {
+            throw new IllegalArgumentException("Invalid number format: " + input);
+        }
+    }
+}
